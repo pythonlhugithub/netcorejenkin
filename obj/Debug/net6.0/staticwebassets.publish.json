@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "bkHI99ujvtOMo+KKPLqVuOZCbnPUGkoCRnRoDYEcymg=",
+  "Source": "netcorejenkin",
+  "BasePath": "_content/netcorejenkin",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
