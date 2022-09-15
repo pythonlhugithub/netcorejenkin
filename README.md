@@ -109,3 +109,51 @@ Push successful
 INFO: Octopus CLI exit code: 0
 Finished: SUCCESS</pre>
 </td></tr></table>
+
+<p>Octopus runbook</p>
+
+<table><tr><td>
+<pre>
+9 additional lines not shown
+September 16th 2022 07:25:10Info
+Site "webrunbook" does not exist, creating... 
+September 16th 2022 07:25:10Info
+Name         : webrunbook 
+September 16th 2022 07:25:10Info
+ID           : 5 
+September 16th 2022 07:25:10Info
+State        : Started 
+September 16th 2022 07:25:10Info
+PhysicalPath : C:\Octopus\Applications\development\netcorejenkin\1.0.16_2 
+September 16th 2022 07:25:10Info
+Bindings     : Microsoft.IIs.PowerShell.Framework.ConfigurationElement 
+September 16th 2022 07:25:10Info
+Assigning "IIS:\Sites\webrunbook" to application pool "netcorejenkin1"... 
+September 16th 2022 07:25:10Info
+Setting physical path of IIS:\Sites\webrunbook to C:\Octopus\Applications\development\netcorejenkin\1.0.16_2 
+September 16th 2022 07:25:10Info
+Comparing existing IIS bindings with configured bindings... 
+September 16th 2022 07:25:10Info
+Found existing non-configured binding: http :81:od-temp.example.com 
+September 16th 2022 07:25:10Info
+Existing IIS bindings do not match configured bindings. 
+September 16th 2022 07:25:10Info
+Clearing IIS bindings 
+September 16th 2022 07:25:10Info
+Assigning binding: http *:8035: 
+September 16th 2022 07:25:11Info
+Anonymous authentication enabled: False 
+September 16th 2022 07:25:11Info
+Applied configuration changes to section "system.webServer/security/authentication/anonymousAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:11Info
+Basic authentication enabled: False 
+September 16th 2022 07:25:11Info
+Applied configuration changes to section "system.webServer/security/authentication/basicAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:11Info
+Windows authentication enabled: True 
+September 16th 2022 07:25:12Info
+Applied configuration changes to section "system.webServer/security/authentication/windowsAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:12Info
+IIS configuration complete 
+</pre>
+</td></tr></table>
