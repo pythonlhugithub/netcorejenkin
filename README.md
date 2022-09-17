@@ -109,3 +109,115 @@ Push successful
 INFO: Octopus CLI exit code: 0
 Finished: SUCCESS</pre>
 </td></tr></table>
+
+<p>Octopus runbook</p>
+
+<table><tr><td>
+<pre>
+9 additional lines not shown
+September 16th 2022 07:25:10Info
+Site "webrunbook" does not exist, creating... 
+September 16th 2022 07:25:10Info
+Name         : webrunbook 
+September 16th 2022 07:25:10Info
+ID           : 5 
+September 16th 2022 07:25:10Info
+State        : Started 
+September 16th 2022 07:25:10Info
+PhysicalPath : C:\Octopus\Applications\development\netcorejenkin\1.0.16_2 
+September 16th 2022 07:25:10Info
+Bindings     : Microsoft.IIs.PowerShell.Framework.ConfigurationElement 
+September 16th 2022 07:25:10Info
+Assigning "IIS:\Sites\webrunbook" to application pool "netcorejenkin1"... 
+September 16th 2022 07:25:10Info
+Setting physical path of IIS:\Sites\webrunbook to C:\Octopus\Applications\development\netcorejenkin\1.0.16_2 
+September 16th 2022 07:25:10Info
+Comparing existing IIS bindings with configured bindings... 
+September 16th 2022 07:25:10Info
+Found existing non-configured binding: http :81:od-temp.example.com 
+September 16th 2022 07:25:10Info
+Existing IIS bindings do not match configured bindings. 
+September 16th 2022 07:25:10Info
+Clearing IIS bindings 
+September 16th 2022 07:25:10Info
+Assigning binding: http *:8035: 
+September 16th 2022 07:25:11Info
+Anonymous authentication enabled: False 
+September 16th 2022 07:25:11Info
+Applied configuration changes to section "system.webServer/security/authentication/anonymousAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:11Info
+Basic authentication enabled: False 
+September 16th 2022 07:25:11Info
+Applied configuration changes to section "system.webServer/security/authentication/basicAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:11Info
+Windows authentication enabled: True 
+September 16th 2022 07:25:12Info
+Applied configuration changes to section "system.webServer/security/authentication/windowsAuthentication" for "MACHINE/WEBROOT/APPHOST/webrunbook" at configuration commit path "MACHINE/WEBROOT/APPHOST" 
+September 16th 2022 07:25:12Info
+IIS configuration complete 
+</pre>
+</td></tr></table>
+
+<h1>build in jenkin and automatically deploy to octpus deploy server (target IIS web server)</h1>
+<pre>
+under project click Process to add step Octopus: deploy release from post-build actions.
+
+enter octopus project name "jenkinpush" and version 1.0.${BUILD_NUMBER} and save
+
+click build now again to rebuild a new version 1.0.23 (latest)
+
+Task logs said
+
+INFO: Octopus CLI exit code: 0
+INFO: Started Octopus Deploy
+INFO: ======================
+INFO: Project: jenkinpush
+INFO: Version: 1.0.${BUILD_NUMBER}
+INFO: Environment: development
+INFO: ======================
+[netcoreoctopusway] $ C:\OctopusTools.9.0.0.win-x64\octo.exe deploy-release --deployTo development --version 1.0.23 --progress --project jenkinpush --server http://localhost:8055 --apiKey ******** --space Spaces-1 --ignoreSslErrors
+Octopus CLI, version 9.0.0
+
+Detected automation environment: "Jenkins"
+Found space: Default (Spaces-1)
+Space name specified, process is now running in the context of space: Default
+Handshaking with Octopus Server: http://localhost:8055
+Handshake successful. Octopus version: 2022.2.7965; API version: 3.0.0
+Authenticated as: pythonlhu <pythonlhu@gmail.com> 
+Found environment: development (Environments-21)
+Found project: jenkinpush (Projects-61)
+Finding release 1.0.23
+<b>Release 1.0.23 for project jenkinpush</b>
+
+open Octpus deploy server 
+
+click library , you can see the latest package is uploaded here automatically by jenkin as below
+
+<b><i>netcorejenkin	1.0.23 A deployment package created from files on disk.</i></b>
+
+history
+1.0.23 Sep 16, 2022 8:45 AM	1.3 MB
+1.0.22 Sep 16, 2022 8:45 AM	1.3 MB
+1.0.21 Sep 16, 2022 8:45 AM	1.3 MB
+1.0.20 Sep 16, 2022 8:45 AM	1.3 MB 
+1.0.19 Sep 16, 2022 8:45 AM	1.3 MB
+1.0.18 Sep 16, 2022 8:45 AM	1.3 MB
+1.0.17 Sep 16, 2022 8:45 AM	1.3 MB
+
+because we enable a trigger of Automatic Release Creation in this project as below
+
+Create a release when a package is pushed to the built-in package repository for:
+Package Step: Deploy a Package
+Channel: Default
+
+after jenkin pushes a new version package to octopus server, octopus server gets triggered to deploy this new version of package release in release step.
+
+Sep 16, 2022 8:45 AM
+system
+jenkinpush release 0.0.8 was automatically created because package netcorejenkin was pushed to the Octopus Server (built-in) feed
+
+if we go to deploy this version manually, we can see this deployed as a 1.0.23 in IIS web server 
+
+<b>C:\Octopus\Applications\development\netcorejenkin\1.0.23</b>
+
+</pre>
