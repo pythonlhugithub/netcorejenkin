@@ -1,4 +1,4 @@
-# netcorejenkin
+#git push trigger jenkin build jenkin build trigger octopus deploy
 
 github is deployed to Jenkin server for CI/CD 
 
